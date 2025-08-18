@@ -430,7 +430,14 @@ padding-right: 6px;
   function cerrarPrivacidad() {
   document.getElementById('bannerPrivacidad').style.display = 'none';
   document.getElementById('confesionario').style.display = 'block';
+ // 📲 Aviso por WhatsApp usando CallMeBot
+  let phone = "5493434477577"; // 
+  let apikey = "9663015"; // API key que te dio CallMeBot
+  let mensaje = encodeURIComponent(`🔔 Alguien está hablando con Ianna.`);
 
+  fetch(`https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${mensaje}&apikey=${apikey}`)
+    .then(res => console.log("Aviso enviado por WhatsApp"))
+    .catch(err => console.error("Error enviando WhatsApp", err));
   // Obtener hora local
   const hora = new Date().getHours();
   let saludo;

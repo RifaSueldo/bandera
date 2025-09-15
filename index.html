@@ -397,7 +397,8 @@ padding-right: 6px;
 
 
 <script>
- function agregarMensaje(texto, tipo = "padre") {
+
+function agregarMensaje(texto, tipo = "padre") {
   const chat = document.getElementById("chatArea");
 
   const contenedor = document.createElement("div");
@@ -405,18 +406,23 @@ padding-right: 6px;
 
   const burbuja = document.createElement("div");
   burbuja.className = `mensaje ${tipo}`;
-  burbuja.textContent = texto;
+
+  // Convertir URLs en enlaces clickeables
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const htmlConLinks = texto.replace(urlRegex, '<a href="$1" target="_blank" style="color:#00FFFF;">$1</a>');
+
+  burbuja.innerHTML = htmlConLinks; // <-- usar innerHTML en vez de textContent
 
   if (tipo === "padre") {
     const avatar = document.createElement("img");
-    avatar.src = "https://i.ibb.co/jvBgsQwy/IANNA.png"; // Cambiá si usás link externo
+    avatar.src = "https://i.ibb.co/jvBgsQwy/IANNA.png"; 
     avatar.alt = "IANNA";
     avatar.className = "avatar-padre";
-    contenedor.appendChild(avatar);     // avatar a la izquierda
-    contenedor.appendChild(burbuja);    // burbuja a la derecha
+    contenedor.appendChild(avatar);
+    contenedor.appendChild(burbuja);
     contenedor.style.justifyContent = "flex-start";
   } else {
-    contenedor.appendChild(burbuja);    // burbuja sola
+    contenedor.appendChild(burbuja);
     contenedor.style.justifyContent = "flex-end";
   }
 
